@@ -3,7 +3,6 @@
   hosts: localhost
   gather_facts: false
   vars_files:
-  - "{{ project_root }}/vars/dcmdb_apis.yml"
   - "{{ project_root }}/vars/assets_test.yml"
   vars:
     project_root: "../"
@@ -12,52 +11,6 @@
     error_log: null
 
   tasks:
-
-    - name: Validate Vars
-      ansible.builtin.debug:
-        var: text_validation
-
-    - name: Validate data model
-      block:
-        - name: Validate model
-          ansible.builtin.assert:
-            that:
-              - models.cms.assets.software is defined
-              - models.cms.assets.software | length > 0
-      rescue:
-        - name: Setter errors model
-          ansible.builtin.set_fact:
-            error_code: "El modelo no está definido en el archivo de configuración."
-            error_detail: "El modelo no está definido en el archivo de configuración."
-            error_log: "El modelo no está definido en el archivo de configuración."
-
-        - name: Debug in model
-          ansible.builtin.fail:
-            msg: "{{ error_log }}"
-          when: error_log is defined
-
-    - name: Validate url
-      block:
-
-        - name: Validate base url
-          ansible.builtin.assert:
-            that:
-              - cmdb_url is defined
-              - cmdb_url != ''
-            fail_msg: "La url no está definida en el archivo de configuración."
-            success_msg: "Url validada, url={{ cmdb_url }}"
-
-      rescue:
-        - name: Setter errors model
-          ansible.builtin.set_fact:
-            error_code: "La url no está definida en el archivo de configuración."
-            error_detail: "La url no está definida en el archivo de configuración."
-            error_log: "La url no está definida en el archivo de configuración."
-
-        - name: Debug in model
-          ansible.builtin.fail:
-            msg: "{{ error_log }}"
-          when: error_log is defined
 
     - name: Validate token
       block:
@@ -85,7 +38,7 @@
       block:
         - name: Módulo mutate
           mutate:
-            url:  "http://localhost/api/cms/assets/softwares/mutate"
+            url: "{{ url_mutate }}"
             batch_size: 10
             token: "{{ dcmdb_token }}"
             operations: "{{ asset_mutation }}"
@@ -105,7 +58,7 @@
       block:
         - name: Módulo search
           search:
-            url:  "http://localhost/api/cms/assets/softwares/search"
+            url:  "{{ url_search }}"
             token: "{{ dcmdb_token }}"
             search_params:
               selects:
@@ -141,7 +94,7 @@
       block:
         - name: Módulo delete
           delete:
-            url:  "http://localhost/api/cms/assets/softwares"
+            url:  "{{ url_delete }}"
             batch_size: 10
             token: "{{ dcmdb_token }}"
             operations: "{{ operations }}"
