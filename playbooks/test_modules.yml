@@ -12,6 +12,11 @@
     error_log: null
 
   tasks:
+
+    - name: Validate Vars
+      ansible.builtin.debug:
+        var: text_validation
+
     - name: Validate data model
       block:
         - name: Validate model
