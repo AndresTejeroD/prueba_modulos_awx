@@ -1,14 +1,25 @@
 ---
 - name: Run modules.py
   hosts: localhost
+  become: false
   gather_facts: false
-  vars_files:
-  - "{{ project_root }}/vars/assets_test.yml"
   vars:
     project_root: "../"
     error_code: null
     error_detail: null
     error_log: null
+    cmdb_url: http://10.100.1.134/
+    dcmdb_token: 4|bVIJoyVO94y6agoON6VY0JQ0rJ0Qg7wnsxBfBPRV310bff0c
+    url_mutate: http://10.100.1.134/api/cms/assets/softwares/mutate
+    url_search: http://10.100.1.134/api/cms/assets/softwares/search
+    url_delete: http://10.100.1.134/api/cms/assets/softwares
+    # dcmdb_token: 1|twygbIP3K48gkeLm0t8D5ILbdg08Kh9AbK8lTK9509bf676c
+    # url_mutate: http://localhost/api/cms/assets/softwares/mutate
+    # url_search: http://localhost/api/cms/assets/softwares/search
+    # url_delete: http://localhost/api/cms/assets/softwares
+  vars_files:
+    - "{{ project_root }}/vars/assets_test.yml"
+    # - "{{ project_root }}/vars/dcmdb_api.yml"
 
   tasks:
 
