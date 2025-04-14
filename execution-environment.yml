@@ -1,0 +1,14 @@
+version: 1
+build_arg_defaults:
+  EE_BASE_IMAGE: quay.io/ansible/ansible-runner:latest
+
+dependencies:
+  python:
+    - requests
+    - types-requests
+  system: []
+  galaxy: collections/requirements.yml
+
+additional_build_steps:
+  prepend: []
+  append: []

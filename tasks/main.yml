@@ -1,0 +1,153 @@
+---
+- name: Run modules.py
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+  - "{{ project_root }}/vars/dcmdb_apis.yml"
+  - "{{ project_root }}/vars/assets_test.yml"
+  vars:
+    project_root: "../"
+    error_code: null
+    error_detail: null
+    error_log: null
+
+  tasks:
+    - name: Validate data model
+      block:
+        - name: Validate model
+          ansible.builtin.assert:
+            that:
+              - models.cms.assets.software is defined
+              - models.cms.assets.software | length > 0
+      rescue:
+        - name: Setter errors model
+          ansible.builtin.set_fact:
+            error_code: "El modelo no está definido en el archivo de configuración."
+            error_detail: "El modelo no está definido en el archivo de configuración."
+            error_log: "El modelo no está definido en el archivo de configuración."
+
+        - name: Debug in model
+          ansible.builtin.fail:
+            msg: "{{ error_log }}"
+          when: error_log is defined
+
+    - name: Validate url
+      block:
+
+        - name: Validate base url
+          ansible.builtin.assert:
+            that:
+              - cmdb_url is defined
+              - cmdb_url != ''
+            fail_msg: "La url no está definida en el archivo de configuración."
+            success_msg: "Url validada, url={{ cmdb_url }}"
+
+      rescue:
+        - name: Setter errors model
+          ansible.builtin.set_fact:
+            error_code: "La url no está definida en el archivo de configuración."
+            error_detail: "La url no está definida en el archivo de configuración."
+            error_log: "La url no está definida en el archivo de configuración."
+
+        - name: Debug in model
+          ansible.builtin.fail:
+            msg: "{{ error_log }}"
+          when: error_log is defined
+
+    - name: Validate token
+      block:
+
+        - name: Validation token
+          ansible.builtin.assert:
+            that:
+              - dcmdb_token is defined
+              - dcmdb_token != ''
+            fail_msg: "El token no está definido en el archivo de configuración."
+            success_msg: "Token validado, token={{ dcmdb_token }}"
+      rescue:
+        - name: Setter errors model
+          ansible.builtin.set_fact:
+            error_code: "El token no está definido en el archivo de configuración."
+            error_detail: "El token no está definido en el archivo de configuración."
+            error_log: "El token no está definido en el archivo de configuración."
+
+        - name: Debug in model
+          ansible.builtin.fail:
+            msg: "{{ error_log }}"
+          when: error_log is defined
+
+    - name: Insertar datos
+      block:
+        - name: Módulo mutate
+          mutate:
+            url:  "http://localhost/api/cms/assets/softwares/mutate"
+            batch_size: 10
+            token: "{{ dcmdb_token }}"
+            operations: "{{ asset_mutation }}"
+          register: response
+
+        - name: Debug response
+          ansible.builtin.debug:
+            var: response
+
+      rescue:
+        - name: Rescue insertion data
+          ansible.builtin.fail:
+            msg: "{{ error_log }}"
+          when: error_log is defined 
+
+    - name: Recuperar datos
+      block:
+        - name: Módulo search
+          search:
+            url:  "http://localhost/api/cms/assets/softwares/search"
+            token: "{{ dcmdb_token }}"
+            search_params:
+              selects:
+              - field: "id"
+              - field: "name"
+              - field: "code"
+              includes:
+                - relation: "publisher"
+                  type: "max"
+                  field: "id"
+              limit: 10
+          register: response
+
+        - name: Debug response
+          ansible.builtin.debug:
+            var: response
+
+        - name: Extraer lista de IDs
+          set_fact:
+            operations: "{{ response.data | map(attribute='id') | list }}"
+
+        - name: Mostrar lista de IDs
+          debug:
+            var: module_ids
+
+      rescue:
+        - name: Rescue insertion data
+          ansible.builtin.fail:
+            msg: "{{ error_log }}"
+          when: error_log is defined 
+
+    - name: Eliminar datos
+      block:
+        - name: Módulo delete
+          delete:
+            url:  "http://localhost/api/cms/assets/softwares"
+            batch_size: 10
+            token: "{{ dcmdb_token }}"
+            operations: "{{ operations }}"
+          register: response
+
+        - name: Debug response
+          ansible.builtin.debug:
+            var: response
+
+      rescue:
+        - name: Rescue insertion data
+          ansible.builtin.fail:
+            msg: "{{ error_log }}"
+          when: error_log is defined 

@@ -1,0 +1,71 @@
+# --
+# ©️ Copyright Reserved to Ditra https://ditra.mx/
+# --
+
+dcmdb_tasks: "{{ project_root }}/playbooks/assets_management/dcmdb/tasks"
+dcmdb_auth_token:
+validate_certs: false
+
+# cmdb_url: http://192.168.8.176/
+# dcmdb_token: 3|yOxotjd3jIWUtrAeX0P5rTFVlLCaMtZ7gmq0hoW46bc2b74e
+# cmdb_url: http://10.100.1.134/
+# dcmdb_token: 1|aSkhMdmUfrOXtQLdZNj4Nk1FyZv4IDnG4aH1MqqZ38981ca6
+cmdb_url: http://localhost/
+dcmdb_token: 1|twygbIP3K48gkeLm0t8D5ILbdg08Kh9AbK8lTK9509bf676c
+baerer_token: "Bearer {{ dcmdb_token }}"
+cmdb_apis_base:
+  api: api/
+models:
+  helpers:
+    lookup: helpers/lookups
+  assets:
+    servergroup: assets/group-servers
+    server: assets/servers
+    hardware: assets/hardwares
+    asset: assets/assets
+    subscription: assets/subscriptions
+    contract: assets/contracts
+    licence: assets/licenses
+  org: 
+    manufacturer: orgs/manufacturers
+    company: orgs/companies
+  users:
+    user: users
+  cms:
+    assets:
+      software: cms/assets/softwares
+      control_group: cms/assets/control-groups
+      control_group_software: cms/assets/control-groups-softwares
+    configs:
+      restart_times: cms/configs/restart-times
+  hosts:
+    host: hosts/hosts
+    mac: hosts/macs/macs
+    host_mac: hosts/macs/hosts_macs
+    host_group: hosts/host_groups
+  process_management:
+    process: process-management/processes
+    schedules: process-management/schedules
+    process_notification: process-management/processes-notifications
+    template: process-management/templates
+  monitoring:
+    http:
+      response: monitoring/http/responses
+    updates:
+      system_update: monitoring/updates/system-updates
+
+cmdb_apis:
+  auth:
+    login: "{{ cmdb_apis_base.api }}auth/login"
+    logout: "{{ cmdb_apis_base.api }}auth/logout"
+    register: "{{ cmdb_apis_base.api }}auth/register"
+    user: "{{ cmdb_apis_base.api }}auth/user"
+
+  apis:
+    details: "{{ cmdb_apis_base.api }}{{ '{{ model }}' }}"
+    destroy: "{{ cmdb_apis_base.api }}{{ '{{ model }}' }}"
+    operate: "{{ cmdb_apis_base.api }}{{ '{{ model }}' }}/actions/{action}"
+    forceDelete: "{{ cmdb_apis_base.api }}{{ '{{ model }}' }}/force"
+    mutate: "{{ cmdb_apis_base.api }}{{ '{{ model }}' }}/mutate"
+    restore: "{{ cmdb_apis_base.api }}{{ '{{ model }}' }}/restore"
+    search: "{{ cmdb_apis_base.api }}{{ '{{ model }}' }}/search"

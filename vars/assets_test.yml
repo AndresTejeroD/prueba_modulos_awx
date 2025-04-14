@@ -1,0 +1,222 @@
+asset_mutation:
+  - operation: "create"
+    attributes:
+      code: "MS_Office_2021"
+      name: "Microsoft Office"
+      package_full_name: "Microsoft Office 2021"
+      package_family_name: "Microsoft Office Suite"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+  - operation: "create"
+    attributes:
+      code: "Adobe_Photoshop_2023"
+      name: "Adobe Photoshop"
+      package_full_name: "Adobe Photoshop 2023"
+      package_family_name: "Adobe Creative Suite"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+  - operation: "create"
+    attributes:
+      code: "Visual_Studio_2022"
+      name: "Visual Studio"
+      package_full_name: "Visual Studio 2022"
+      package_family_name: "Microsoft Developer Tools"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+  - operation: "create"
+    attributes:
+      code: "Slack_Enterprise"
+      name: "Slack"
+      package_full_name: "Slack Enterprise Edition"
+      package_family_name: "Slack Communication Tools"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+  - operation: "create"
+    attributes:
+      code: "Zoom_Pro"
+      name: "Zoom"
+      package_full_name: "Zoom Pro Edition"
+      package_family_name: "Zoom Video Communications"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+  - operation: "create"
+    attributes:
+      code: "Chrome_2025"
+      name: "Google Chrome"
+      package_full_name: "Google Chrome 2025"
+      package_family_name: "Google Web Browsers"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+  - operation: "create"
+    attributes:
+      code: "Firefox_2025"
+      name: "Mozilla Firefox"
+      package_full_name: "Mozilla Firefox 2025"
+      package_family_name: "Mozilla Web Browsers"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+  - operation: "create"
+    attributes:
+      code: "Notepad++_8.5"
+      name: "Notepad++"
+      package_full_name: "Notepad++ Version 8.5"
+      package_family_name: "Text Editors"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+  - operation: "create"
+    attributes:
+      code: "Docker_Desktop_4.20"
+      name: "Docker Desktop"
+      package_full_name: "Docker Desktop 4.20"
+      package_family_name: "Containerization Tools"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+  - operation: "create"
+    attributes:
+      code: "Postman_10.15"
+      name: "Postman"
+      package_full_name: "Postman API Platform 10.15"
+      package_family_name: "API Development Tools"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+
+  - operation: "create"
+    attributes:
+      code: "PyCharm_2023.1"
+      name: "PyCharm"
+      package_full_name: "PyCharm Professional 2023.1"
+      package_family_name: "JetBrains IDEs"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+
+  - operation: "create"
+    attributes:
+      code: "IntelliJ_2023.1"
+      name: "IntelliJ IDEA"
+      package_full_name: "IntelliJ IDEA Ultimate 2023.1"
+      package_family_name: "JetBrains IDEs"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+
+  - operation: "create"
+    attributes:
+      code: "VSCode_1.80"
+      name: "Visual Studio Code"
+      package_full_name: "Visual Studio Code 1.80"
+      package_family_name: "Microsoft Developer Tools"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+
+  - operation: "create"
+    attributes:
+      code: "GitHub_Desktop_3.2"
+      name: "GitHub Desktop"
+      package_full_name: "GitHub Desktop 3.2"
+      package_family_name: "GitHub Tools"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+
+  - operation: "create"
+    attributes:
+      code: "Figma_2025"
+      name: "Figma"
+      package_full_name: "Figma Design Tool 2025"
+      package_family_name: "Design Tools"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+
+  - operation: "create"
+    attributes:
+      code: "Trello_Enterprise"
+      name: "Trello"
+      package_full_name: "Trello Enterprise Edition"
+      package_family_name: "Project Management Tools"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+
+  - operation: "create"
+    attributes:
+      code: "Jira_Cloud"
+      name: "Jira"
+      package_full_name: "Jira Cloud Edition"
+      package_family_name: "Project Management Tools"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+
+  - operation: "create"
+    attributes:
+      code: "Spotify_2025"
+      name: "Spotify"
+      package_full_name: "Spotify Premium 2025"
+      package_family_name: "Music Streaming Services"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+
+  - operation: "create"
+    attributes:
+      code: "Netflix_2025"
+      name: "Netflix"
+      package_full_name: "Netflix Premium 2025"
+      package_family_name: "Streaming Services"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+
+  - operation: "create"
+    attributes:
+      code: "AWS_CLI_2.0"
+      name: "AWS CLI"
+      package_full_name: "AWS Command Line Interface 2.0"
+      package_family_name: "Cloud Tools"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
+
+  - operation: "create"
+    attributes:
+      code: "Azure_DevOps_2025"
+      name: "Azure DevOps"
+      package_full_name: "Azure DevOps Tools 2025"
+      package_family_name: "Cloud Tools"
+    relations:
+      publisher:
+        operation: "attach"
+        key: 1
